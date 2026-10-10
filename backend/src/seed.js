@@ -1,181 +1,139 @@
 const { connectDB } = require('./config/db');
-const Project = require('./models/Project');
-const Task = require('./models/Task');
+const Product = require('./models/Product');
+const Order = require('./models/Order');
 
 const seedData = async () => {
   try {
     await connectDB();
-    console.log('[Seed] Database connected, beginning seed process...');
+    console.log('[Seed] Database connected, seeding E-Commerce catalog...');
 
-    // Clear existing data
-    await Task.destroy({ where: {} });
-    await Project.destroy({ where: {} });
+    await Order.destroy({ where: {} });
+    await Product.destroy({ where: {} });
 
-    // Create Main Project
-    const devopsProject = await Project.create({
-      key: 'DEVOPS',
-      name: 'Cloud DevOps & Microservices Platform',
-      description: 'Full-stack application lifecycle: Git, Docker, Jenkins CI/CD, and Prometheus Monitoring',
-      lead: 'DevOps Lead Engineer',
-      status: 'Active',
-    });
-
-    const webProject = await Project.create({
-      key: 'CORE',
-      name: 'Core Application Service',
-      description: 'Full-Stack Web Portal and Business Logic APIs',
-      lead: 'Senior Fullstack Developer',
-      status: 'Active',
-    });
-
-    const tasks = [
+    const products = [
       {
-        issueKey: 'DEVOPS-101',
-        title: 'Expt 1: Initialize Git Repo & Branching Model',
-        description: 'Set up Git repository with main, develop, and feature branches. Implement conventional commit messages linking Jira ticket IDs.',
-        status: 'DONE',
-        priority: 'HIGH',
-        type: 'TASK',
-        sprint: 'Sprint 1',
-        assignee: 'Alex (DevOps)',
-        estimatedHours: 4.0,
-        gitBranch: 'feature/git-vcs-setup',
-        gitCommit: 'a1f893e',
-        projectId: devopsProject.id,
+        sku: 'SHOP-ELEC-101',
+        name: 'Sony WH-1000XM5 Wireless Headphones',
+        description: 'Industry-leading noise canceling with two processors and 8 microphones for crystal clear audio and hands-free calls.',
+        price: 349.99,
+        category: 'Electronics',
+        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
+        stock: 35,
+        rating: 4.9,
+        ratingCount: 128,
       },
       {
-        issueKey: 'DEVOPS-102',
-        title: 'Expt 2: Containerize Backend & Frontend using Docker',
-        description: 'Write optimized multi-stage Dockerfiles for Node.js API and React Vite web application with proper caching layers and .dockerignore files.',
-        status: 'DONE',
-        priority: 'HIGH',
-        type: 'DEVOPS',
-        sprint: 'Sprint 1',
-        assignee: 'Sam (Cloud Eng)',
-        estimatedHours: 6.0,
-        gitBranch: 'feature/docker-containerization',
-        gitCommit: 'b4c771a',
-        projectId: devopsProject.id,
+        sku: 'SHOP-ELEC-102',
+        name: 'Apple Watch Series 9 GPS 45mm',
+        description: 'Powerful S9 SiP chip, Double Tap gesture, brighter display, and advanced health tracking features.',
+        price: 429.00,
+        category: 'Electronics',
+        image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80',
+        stock: 18,
+        rating: 4.8,
+        ratingCount: 95,
       },
       {
-        issueKey: 'DEVOPS-103',
-        title: 'Expt 3: Deploy Multi-Service Application via Docker Compose',
-        description: 'Configure docker-compose.yml bridging frontend (port 3000/80), backend (port 5000), PostgreSQL (port 5432), and internal bridge networking.',
-        status: 'DONE',
-        priority: 'CRITICAL',
-        type: 'DEVOPS',
-        sprint: 'Sprint 1',
-        assignee: 'Sam (Cloud Eng)',
-        estimatedHours: 8.0,
-        gitBranch: 'feature/docker-compose-stack',
-        gitCommit: 'c909e23',
-        projectId: devopsProject.id,
+        sku: 'SHOP-ELEC-103',
+        name: 'Keychron K2 Mechanical Gaming Keyboard',
+        description: 'Wireless Bluetooth mechanical keyboard with RGB backlighting, hot-swappable Gateron G Pro switches.',
+        price: 89.99,
+        category: 'Electronics',
+        image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80',
+        stock: 40,
+        rating: 4.7,
+        ratingCount: 64,
       },
       {
-        issueKey: 'DEVOPS-104',
-        title: 'Expt 4: Build Jenkins CI Pipeline with Jenkinsfile',
-        description: 'Author declarative Jenkinsfile with automated stages: Checkout SCM, Unit Tests, Docker Image Build, and Health Validation.',
-        status: 'IN_PROGRESS',
-        priority: 'CRITICAL',
-        type: 'DEVOPS',
-        sprint: 'Sprint 2',
-        assignee: 'Maria (Release Eng)',
-        estimatedHours: 10.0,
-        gitBranch: 'feature/jenkins-ci-pipeline',
-        gitCommit: 'd550fa1',
-        projectId: devopsProject.id,
+        sku: 'SHOP-ELEC-104',
+        name: 'Dell UltraSharp 27" 4K HDR USB-C Hub Monitor',
+        description: 'IPS Black technology with 2000:1 contrast ratio, 98% DCI-P3 color coverage, and 90W power delivery.',
+        price: 499.50,
+        category: 'Electronics',
+        image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80',
+        stock: 12,
+        rating: 4.9,
+        ratingCount: 47,
       },
       {
-        issueKey: 'DEVOPS-105',
-        title: 'Expt 5: Automate Deployment Pipeline using GitHub & Jenkins',
-        description: 'Configure automated webhook triggering Jenkins pipeline builds on GitHub push events with Slack/email notifications.',
-        status: 'IN_PROGRESS',
-        priority: 'HIGH',
-        type: 'TASK',
-        sprint: 'Sprint 2',
-        assignee: 'Maria (Release Eng)',
-        estimatedHours: 8.0,
-        gitBranch: 'feature/github-jenkins-webhook',
-        gitCommit: 'e812ab4',
-        projectId: devopsProject.id,
+        sku: 'SHOP-ACC-201',
+        name: 'Bellroy Classic Water-Resistant Commuter Backpack',
+        description: 'Padded laptop sleeve for up to 16" devices, quick-access exterior valuables pocket, and contoured lumbar support.',
+        price: 139.00,
+        category: 'Accessories',
+        image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80',
+        stock: 22,
+        rating: 4.8,
+        ratingCount: 83,
       },
       {
-        issueKey: 'DEVOPS-106',
-        title: 'Expt 6: Setup Jira Agile Board, Backlog & Sprints',
-        description: 'Configure Scrum/Kanban board, user stories, epics, bug tracking workflows, and link Git commit hashes with Jira issues.',
-        status: 'DONE',
-        priority: 'MEDIUM',
-        type: 'STORY',
-        sprint: 'Sprint 1',
-        assignee: 'Taylor (Scrum Master)',
-        estimatedHours: 5.0,
-        gitBranch: 'feature/jira-agile-workflows',
-        gitCommit: 'f391bb7',
-        projectId: devopsProject.id,
+        sku: 'SHOP-ACC-202',
+        name: 'Minimalist Titanium Automatic Chronograph Watch',
+        description: 'Sapphire crystal face, Japanese automatic movement, genuine Italian leather strap, and 100m water resistance.',
+        price: 219.00,
+        category: 'Accessories',
+        image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&q=80',
+        stock: 15,
+        rating: 4.6,
+        ratingCount: 39,
       },
       {
-        issueKey: 'DEVOPS-107',
-        title: 'Expt 7: Implement Monitoring with Prometheus & Grafana',
-        description: 'Integrate prom-client metrics endpoint (/metrics) in Express backend, configure prometheus.yml scrape jobs, and provision Grafana dashboard.',
-        status: 'IN_REVIEW',
-        priority: 'CRITICAL',
-        type: 'DEVOPS',
-        sprint: 'Sprint 2',
-        assignee: 'Jordan (SRE)',
-        estimatedHours: 12.0,
-        gitBranch: 'feature/prometheus-grafana-metrics',
-        gitCommit: '07cbe41',
-        projectId: devopsProject.id,
+        sku: 'SHOP-APP-301',
+        name: 'Nike Air Jordan 1 Retro High OG Sneakers',
+        description: 'Iconic streetwear sneaker with premium full-grain leather, Air-Sole cushioning, and durable rubber traction.',
+        price: 180.00,
+        category: 'Apparel',
+        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+        stock: 8,
+        rating: 4.9,
+        ratingCount: 210,
       },
       {
-        issueKey: 'CORE-201',
-        title: 'Implement Database Connection Pooling & Failover',
-        description: 'Ensure backend seamlessly connects to PostgreSQL in production and provides SQLite fallback for local developer workstations.',
-        status: 'DONE',
-        priority: 'HIGH',
-        type: 'TASK',
-        sprint: 'Sprint 1',
-        assignee: 'Senior Fullstack Developer',
-        estimatedHours: 6.0,
-        gitBranch: 'feature/db-pooling-failover',
-        gitCommit: '12d99ab',
-        projectId: webProject.id,
-      },
-      {
-        issueKey: 'CORE-202',
-        title: 'Build Interactive Kanban Drag-and-Drop Board',
-        description: 'Create frontend React Kanban board supporting dynamic task status updates, real-time filtering by priority, and Jira ticket inspection.',
-        status: 'IN_PROGRESS',
-        priority: 'MEDIUM',
-        type: 'STORY',
-        sprint: 'Sprint 2',
-        assignee: 'Senior Fullstack Developer',
-        estimatedHours: 8.0,
-        gitBranch: 'feature/kanban-board-ui',
-        gitCommit: '34a123f',
-        projectId: webProject.id,
-      },
-      {
-        issueKey: 'CORE-203',
-        title: 'Fix Memory Leak in Metric Collection Buffer',
-        description: 'Resolved histogram bucket size growth during burst traffic tests under k6 load simulator.',
-        status: 'TODO',
-        priority: 'LOW',
-        type: 'BUG',
-        sprint: 'Sprint 2',
-        assignee: 'Jordan (SRE)',
-        estimatedHours: 3.0,
-        gitBranch: 'fix/metric-buffer-leak',
-        gitCommit: null,
-        projectId: webProject.id,
+        sku: 'SHOP-APP-302',
+        name: 'Heavyweight French Terry Organic Cotton Hoodie',
+        description: 'Custom relaxed fit, 450 GSM ultra-dense combed cotton, preshrunk with ribbed side gussets.',
+        price: 75.00,
+        category: 'Apparel',
+        image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80',
+        stock: 50,
+        rating: 4.7,
+        ratingCount: 76,
       },
     ];
 
-    for (const task of tasks) {
-      await Task.create(task);
+    for (const prod of products) {
+      await Product.create(prod);
     }
 
-    console.log(`[Seed] Successfully seeded ${tasks.length} tasks across 2 projects!`);
+    // Seed Demo Initial Orders
+    await Order.create({
+      orderNumber: 'ORD-891024',
+      customerName: 'Alex Rivera',
+      customerEmail: 'alex.rivera@example.com',
+      shippingAddress: '742 Evergreen Terrace, Springfield',
+      totalAmount: 439.98,
+      status: 'DELIVERED',
+      items: [
+        { productId: 1, name: 'Sony WH-1000XM5 Wireless Headphones', price: 349.99, quantity: 1 },
+        { productId: 3, name: 'Keychron K2 Mechanical Gaming Keyboard', price: 89.99, quantity: 1 },
+      ],
+      jiraIssueRef: 'SHOP-ORD-101',
+    });
+
+    await Order.create({
+      orderNumber: 'ORD-992147',
+      customerName: 'Maya Patel',
+      customerEmail: 'maya.patel@example.com',
+      shippingAddress: '456 Innovation Way, San Francisco, CA',
+      totalAmount: 180.00,
+      status: 'PROCESSING',
+      items: [
+        { productId: 7, name: 'Nike Air Jordan 1 Retro High OG Sneakers', price: 180.00, quantity: 1 },
+      ],
+      jiraIssueRef: 'SHOP-ORD-102',
+    });
+
+    console.log(`[Seed] Seeded ${products.length} products and 2 demo orders successfully!`);
     process.exit(0);
   } catch (error) {
     console.error('[Seed] Error during seeding:', error);

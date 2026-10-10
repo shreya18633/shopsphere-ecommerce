@@ -1,21 +1,15 @@
 const os = require('os');
-const Task = require('../models/Task');
-const Project = require('../models/Project');
+const Product = require('../models/Product');
+const Order = require('../models/Order');
 
-exports.getSystemStats = async (req, res) => {
+exports.getStoreStats = async (req, res) => {
   try {
-    const totalTasks = await Task.count();
-    const todoCount = await Task.count({ where: { status: 'TODO' } });
-    const inProgressCount = await Task.count({ where: { status: 'IN_PROGRESS' } });
-    const inReviewCount = await Task.count({ where: { status: 'IN_REVIEW' } });
-    const doneCount = await Task.count({ where: { status: 'DONE' } });
+    const totalProducts = await Product.count();
+    const totalOrders = await Order.count();
+    const orders = await Order.findAll({ attributes: ['totalAmount', 'status'] });
+    const totalRevenue = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
 
-    const criticalCount = await Task.count({ where: { priority: 'CRITICAL' } });
-    const highCount = await Task.count({ where: { priority: 'HIGH' } });
-    const mediumCount = await Task.count({ where: { priority: 'MEDIUM' } });
-    const lowCount = await Task.count({ where: { priority: 'LOW' } });
-
-    const totalProjects = await Project.count();
+    const lowStockCount = await Product.count({ where: { stock: { [require('sequelize').Op.lt]: 10 } } });
 
     const systemInfo = {
       platform: os.platform(),
@@ -36,24 +30,17 @@ exports.getSystemStats = async (req, res) => {
       dbDialect: process.env.DB_DIALECT || (process.env.DB_HOST ? 'postgres' : 'sqlite'),
       monitoringEnabled: true,
       prometheusEndpoint: '/metrics',
-      jenkinsWebhookStatus: 'Configured',
+      domain: 'E-Commerce / Online Marketplace',
     };
 
     res.json({
       success: true,
       data: {
-        summary: {
-          totalTasks,
-          todoCount,
-          inProgressCount,
-          inReviewCount,
-          doneCount,
-          criticalCount,
-          highCount,
-          mediumCount,
-          lowCount,
-          totalProjects,
-          completionRate: totalTasks > 0 ? Math.round((doneCount / totalTasks) * 100) : 0,
+        store: {
+          totalProducts,
+          totalOrders,
+          totalRevenue: Math.round(totalRevenue * 100) / 100,
+          lowStockCount,
         },
         systemInfo,
       },

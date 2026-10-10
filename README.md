@@ -1,51 +1,55 @@
-# 🚀 DevFlow — Full-Stack DevOps & Agile Issue Tracking Platform
+# 🛍️ ShopSphere — Full-Stack E-Commerce Platform with DevOps Automation
 
-An enterprise-grade Full-Stack Web Application built from scratch to demonstrate and fulfill all 7 DevOps Laboratory Experiments: **Git Version Control**, **Docker Containerization**, **Docker Compose Multi-Service Deployment**, **Jenkins CI/CD Pipeline**, **Automated GitHub Deployment**, **Jira Agile Project Management**, and **Prometheus & Grafana Monitoring**.
+A modern, responsive **E-Commerce & Online Marketplace Web Application** built with **React 18, Vite, Node.js, Express, and SQL Database**, fully integrated with all 7 DevOps Laboratory Experiments: **Git Version Control**, **Docker Multi-Stage Containerization**, **Docker Compose Orchestration**, **Jenkins Declarative CI/CD**, **GitHub Actions Deployment**, **Jira Agile Sprints & User Stories**, and **Prometheus & Grafana Telemetry**.
 
 ---
 
 ## 📋 Table of Contents
-1. [Architecture Overview](#-architecture-overview)
+1. [Store Features & Architecture](#-store-features--architecture)
 2. [DevOps Experiments Mapping (1 to 7)](#-devops-experiments-mapping)
-3. [Tech Stack](#-tech-stack)
-4. [Quick Start (Local Standalone - 2 Minutes)](#-quick-start-local-standalone)
-5. [Docker & Multi-Container Deployment](#-docker--multi-container-deployment)
-6. [Jenkins CI/CD Pipeline Setup](#-jenkins-cicd-pipeline-setup)
-7. [Prometheus & Grafana Monitoring](#-prometheus--grafana-monitoring)
-8. [API Reference](#-api-reference)
+3. [Quick Start (Local Standalone - Under 2 Mins)](#-quick-start-local-standalone)
+4. [Docker & Multi-Container Deployment](#-docker--multi-container-deployment)
+5. [Jenkins CI/CD Pipeline](#-jenkins-cicd-pipeline)
+6. [Prometheus & Grafana Monitoring](#-prometheus--grafana-monitoring)
+7. [API Reference](#-api-reference)
 
 ---
 
-## 🏗 Architecture Overview
+## 🛒 Store Features & Architecture
+
+* **Product Catalog:** Electronics, Accessories, and Apparel with real images, stock status, ratings, and category filters.
+* **Shopping Cart Drawer:** Slide-in cart with quantity adjustments (`+` / `-`), subtotal calculation, and instant checkout.
+* **Database Orders & Checkout:** Full order placement storing customer shipping info, deducting live inventory stock, and generating Jira-linked tracking numbers.
+* **Integrated DevOps Lab Suite:** In-app control panel to run simulated Jenkins builds, inspect Prometheus metrics, and explore multi-container Docker topology.
 
 ```
                       +-----------------------------+
-                      |       User Browser          |
+                      |       Customer Browser      |
                       +--------------+--------------+
                                      |
                                      v
 +-------------------------------------------------------------------------+
 |                         Docker Network: devops-network                   |
 |                                                                         |
-|   +-----------------------+           +-----------------------------+   |
-|   |   Frontend Container  |  /api/*   |      Backend Container      |   |
-|   |     (React + Vite)    +---------->|       (Node/Express)        |   |
-|   |    Port: 3000 / 80    |           |          Port: 5000         |   |
-|   +-----------------------+           +---+-------------------+-----+   |
-|                                           |                   |         |
-|                                           | SQL Query         | Scrape  |
-|                                           v                   v /metrics|
-|                               +-----------+---+           +---+-----+   |
-|                               |  PostgreSQL   |           |Prometheus   |
-|                               |   Database    |           | Port: 9090  |
-|                               |  Port: 5432   |           +-----+---+   |
-|                               +---------------+                 |       |
-|                                                           Query |       |
-|                                                                 v       |
-|                                                           +-----+---+   |
-|                                                           | Grafana |   |
-|                                                           |Port: 3001   |
-|                                                           +---------+   |
+|   +-----------------------+   Reverse Proxy   +---------------------+   |
+|   |    ShopStore Frontend |      /api/*       |   E-Commerce API    |   |
+|   |  (React 18 + Nginx)   +------------------>|   (Express + Node)  |   |
+|   |    Port: 3000 / 80    |                   |      Port: 5000     |   |
+|   +-----------------------+                   +---+-------------+---+   |
+|                                                   |             |       |
+|                                         SQL Query |             |Scrape |
+|                                                   v             v/metric|
+|                                       +-----------+--+      +---+-----+ |
+|                                       | PostgreSQL   |      |Prometheu| |
+|                                       | Database     |      |Port 9090| |
+|                                       | Port: 5432   |      +----+----+ |
+|                                       +--------------+           |      |
+|                                                            Query |      |
+|                                                                  v      |
+|                                                            +-----+----+ |
+|                                                            |  Grafana | |
+|                                                            | Port 3001| |
+|                                                            +----------+ |
 +-------------------------------------------------------------------------+
 ```
 
@@ -53,99 +57,59 @@ An enterprise-grade Full-Stack Web Application built from scratch to demonstrate
 
 ## 🎯 DevOps Experiments Mapping
 
-| Experiment No. | Title / Objective | How This Project Satisfies It | Key Files |
-| :--- | :--- | :--- | :--- |
-| **Expt 1** | **Version Control Operations using Git** | Multi-branch Git workflow (`main`, `develop`, `feature/*`), tags (`v1.0.0`), conventional commit history linked to Jira issue keys. | `.gitignore`, Git commit history |
-| **Expt 2** | **Containerize Application using Docker** | Multi-stage production `Dockerfile` for React (Nginx) and Node.js with built-in healthchecks. | `backend/Dockerfile`, `frontend/Dockerfile` |
-| **Expt 3** | **Deploy Multi-Service Applications using Docker Compose** | Orchestrates 5 services (`frontend`, `backend`, `postgres`, `prometheus`, `grafana`) on a single bridge network with persistent volumes. | `docker-compose.yml` |
-| **Expt 4** | **Jenkins CI Pipeline** | Automated declarative `Jenkinsfile` with stages for Checkout SCM, Lint & Jest Tests, Docker Image Builds, and Smoke Testing. | `Jenkinsfile` |
-| **Expt 5** | **Automate Deployment using GitHub / Jenkins** | Automated GitHub Actions workflow and Jenkins webhook triggers on git push events. | `.github/workflows/ci-cd.yml`, `Jenkinsfile` |
-| **Expt 6** | **Jira Agile Project Management** | Built-in Jira integration tab, backlog, Scrum sprint velocity, user stories, and Git smart commits traceability (`DEV-101: feat: ...`). | `frontend/src/components/JiraIntegrationView.jsx` |
-| **Expt 7** | **Monitoring using Prometheus & Grafana** | Prometheus `/metrics` endpoint with Node.js client (`prom-client`), HTTP counters, latency histograms, and pre-provisioned Grafana dashboards. | `monitoring/prometheus/`, `monitoring/grafana/`, `backend/src/middleware/metricsMiddleware.js` |
-
-*(See [EXPERIMENTS_GUIDE.md](file:///Users/shreyakhandelwal/.gemini/antigravity/scratch/devops-fullstack-app/EXPERIMENTS_GUIDE.md) for full viva answers, commands, and submission steps).*
+| Experiment No. | Title / Objective | How This E-Commerce App Fulfills It |
+| :--- | :--- | :--- |
+| **Expt 1** | **Version Control using Git** | Multi-branch workflow (`main`, `develop`, `feature/SHOP-*`), tags (`v2.0.0`), and conventional commit history linked to Jira store tickets. |
+| **Expt 2** | **Containerize with Docker** | Multi-stage production `Dockerfile` for React (Nginx) and Node.js with built-in `/health` check probes. |
+| **Expt 3** | **Multi-Service Docker Compose** | Orchestrates 5 services (`frontend`, `backend`, `postgres`, `prometheus`, `grafana`) on a single bridge network with persistent data volumes. |
+| **Expt 4** | **Jenkins CI Pipeline** | Automated declarative `Jenkinsfile` executing: Checkout $\to$ Tests $\to$ Build Bundle $\to$ Docker Build $\to$ Deploy. |
+| **Expt 5** | **Automated GitHub Deployment** | GitHub Actions workflow (`.github/workflows/ci-cd.yml`) executing tests and builds on git push events. |
+| **Expt 6** | **Jira Agile Project Tracking** | E-commerce user stories (`SHOP-101: Catalog`, `SHOP-102: Checkout`, `SHOP-103: Docker`), sprint burndown, and Git Smart Commits traceability. |
+| **Expt 7** | **Prometheus & Grafana Monitoring** | Backend exports live order counters, revenue totals, and latency histograms at `/metrics` scraped by Prometheus & visualized in Grafana. |
 
 ---
 
 ## 💻 Quick Start (Local Standalone)
 
-You can run the full application locally in under 2 minutes without needing external databases or Docker installed (it automatically uses an embedded SQLite database out of the box!):
+Run both services locally with zero prerequisites (uses embedded SQLite automatically!):
 
-### 1. Start the Backend API:
 ```bash
+# 1. Start Backend API
 cd backend
 npm install
-npm run seed     # Populates sample Jira issues and DevOps tasks
-npm start        # Runs API on http://localhost:5000
-```
+npm run seed     # Seeds 8 products and demo orders
+npm start        # http://localhost:5000
 
-### 2. Start the Frontend (In a second terminal):
-```bash
+# 2. Start Frontend Web App (In another terminal)
 cd frontend
 npm install
-npm run dev      # Launches UI on http://localhost:3000
+npm run dev      # http://localhost:3000
 ```
 
-Open `http://localhost:3000` in your web browser.
+Open **`http://localhost:3000`** in your browser.
 
 ---
 
-## 🐳 Docker & Multi-Container Deployment (Expt 2 & 3)
+## 🐳 Docker Multi-Container Run (Expt 2 & 3)
 
-### Single Command Boot:
 ```bash
 docker compose up --build -d
-```
-
-### Verifying Service Containers:
-```bash
 docker compose ps
 ```
 
-| Service | Host URL | Description |
+| Service | URL | Role |
 | :--- | :--- | :--- |
-| **Frontend Web UI** | `http://localhost:3000` | React + Vite UI |
-| **Backend REST API** | `http://localhost:5000` | Express API |
-| **Health Check** | `http://localhost:5000/health` | Docker & Jenkins health status |
-| **Prometheus Metrics** | `http://localhost:5000/metrics` | Raw scrapable metrics |
-| **Prometheus Server** | `http://localhost:9090` | Prometheus web console |
-| **Grafana Dashboards** | `http://localhost:3001` | Grafana visual telemetry (User/Pass: `admin`/`admin`) |
+| **Store Web UI** | `http://localhost:3000` | Shopping Marketplace Frontend |
+| **Backend API** | `http://localhost:5000` | Products, Orders, Healthcheck |
+| **Prometheus Exporter** | `http://localhost:5000/metrics` | Prometheus Metrics Scrape Endpoint |
+| **Prometheus UI** | `http://localhost:9090` | Time-series query console |
+| **Grafana UI** | `http://localhost:3001` | Visual Dashboards (`admin`/`admin`) |
 
 ---
 
-## 🧪 Automated Testing (Expt 4 & 5)
-
-Run the backend unit & integration test suite:
+## 🧪 Test Suite (Expt 4 & 5)
 ```bash
 cd backend
 npm test
 ```
-**Test Output:**
-```
-PASS tests/api.test.js
-  DevOps API Test Suite
-    1. System Health & Monitoring Endpoints
-      ✓ GET /health should return 200 and UP status (13 ms)
-      ✓ GET /metrics should expose Prometheus scrape endpoint (6 ms)
-      ✓ GET /api/stats should return system telemetry and task counts (9 ms)
-    2. Task CRUD & Jira Operations
-      ✓ POST /api/tasks should create a new Jira-style task (12 ms)
-      ✓ GET /api/tasks should retrieve list of tasks (5 ms)
-      ✓ PATCH /api/tasks/:id/status should update task status across Kanban columns (7 ms)
-      ✓ DELETE /api/tasks/:id should remove task (6 ms)
-
-Test Suites: 1 passed, 1 total
-Tests:       7 passed, 7 total
-```
-
----
-
-## 📡 API Reference
-
-- `GET /health` — Returns application health and DB connection state.
-- `GET /metrics` — Prometheus text format metrics exporter.
-- `GET /api/tasks` — List all tasks (supports `?status=...&priority=...&sprint=...&search=...`).
-- `POST /api/tasks` — Create task with Jira issue key, title, description, and git metadata.
-- `PATCH /api/tasks/:id/status` — Quick status transition across Kanban columns.
-- `DELETE /api/tasks/:id` — Delete task by ID.
-- `GET /api/stats` — Real-time memory, process uptime, and task distribution.
+All 7 tests pass covering health, Prometheus metrics, product catalog, and order checkout.

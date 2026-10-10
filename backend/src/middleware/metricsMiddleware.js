@@ -1,23 +1,22 @@
 const client = require('prom-client');
 
-// Initialize registry
 const register = new client.Registry();
 
-// Add default system metrics (CPU, Memory, Event Loop, etc.)
+// Default system metrics (CPU, Memory, Event Loop)
 client.collectDefaultMetrics({
   register,
-  prefix: 'devops_app_',
+  prefix: 'ecommerce_app_',
 });
 
-// Custom HTTP requests total counter
+// Custom HTTP request total counter
 const httpRequestsTotal = new client.Counter({
   name: 'http_requests_total',
-  help: 'Total number of HTTP requests processed',
+  help: 'Total number of HTTP requests processed by E-Commerce API',
   labelNames: ['method', 'route', 'status_code'],
 });
 register.registerMetric(httpRequestsTotal);
 
-// Custom HTTP request duration histogram
+// Custom HTTP latency histogram
 const httpRequestDuration = new client.Histogram({
   name: 'http_request_duration_seconds',
   help: 'Duration of HTTP requests in seconds',
@@ -26,23 +25,32 @@ const httpRequestDuration = new client.Histogram({
 });
 register.registerMetric(httpRequestDuration);
 
-// Custom Task Gauges for business monitoring
-const tasksGauge = new client.Gauge({
-  name: 'devops_tasks_count',
-  help: 'Current number of tasks categorized by status',
-  labelNames: ['status'],
+// Business Metrics for E-Commerce Domain (Expt 7)
+const ordersCounter = new client.Counter({
+  name: 'ecommerce_orders_total',
+  help: 'Total number of checkout orders placed',
 });
-register.registerMetric(tasksGauge);
+register.registerMetric(ordersCounter);
 
-// Middleware function to track latency and counts
+const revenueCounter = new client.Counter({
+  name: 'ecommerce_revenue_dollars_total',
+  help: 'Total revenue processed in USD',
+});
+register.registerMetric(revenueCounter);
+
+const productsGauge = new client.Gauge({
+  name: 'ecommerce_products_count',
+  help: 'Total number of products in store catalog',
+});
+register.registerMetric(productsGauge);
+
+// Middleware function
 const metricsMiddleware = (req, res, next) => {
   const start = process.hrtime();
 
   res.on('finish', () => {
     const duration = process.hrtime(start);
     const durationSeconds = duration[0] + duration[1] / 1e9;
-    
-    // Normalize path to avoid high cardinality route labels
     const route = req.route ? req.baseUrl + req.route.path : req.path;
     const statusCode = res.statusCode.toString();
 
@@ -65,5 +73,7 @@ const metricsMiddleware = (req, res, next) => {
 module.exports = {
   register,
   metricsMiddleware,
-  tasksGauge,
+  ordersCounter,
+  revenueCounter,
+  productsGauge,
 };

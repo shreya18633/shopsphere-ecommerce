@@ -4,8 +4,9 @@ const cors = require('cors');
 const { connectDB } = require('./config/db');
 const { metricsMiddleware } = require('./middleware/metricsMiddleware');
 
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const taskRoutes = require('./routes/taskRoutes');
-const projectRoutes = require('./routes/projectRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 const metricsRoutes = require('./routes/metricsRoutes');
 const statsController = require('./controllers/statsController');
@@ -20,29 +21,30 @@ app.use(express.json());
 // Prometheus Metrics Middleware (captures HTTP traffic for Expt 7)
 app.use(metricsMiddleware);
 
-// API Documentation & Root Endpoint
+// API Root Documentation
 app.get('/', (req, res) => {
   res.json({
-    app: 'DevOps Full-Stack Platform API',
-    version: '1.0.0',
-    description: 'REST API supporting Git, Docker, Jenkins CI/CD, and Prometheus Monitoring',
+    app: 'ShopSphere — Full-Stack E-Commerce & DevOps Platform API',
+    domain: 'E-Commerce / Online Marketplace',
+    version: '2.0.0',
     endpoints: {
       health: '/health',
       metrics: '/metrics',
-      tasks: '/api/tasks',
-      projects: '/api/projects',
+      products: '/api/products',
+      orders: '/api/orders',
       stats: '/api/stats',
     },
-    documentation: 'See README.md and EXPERIMENTS_GUIDE.md',
+    devopsIntegration: 'Docker Compose, Jenkins CI/CD, Git/GitHub, Jira, Prometheus/Grafana',
   });
 });
 
 // Mount Routes
 app.use('/health', healthRoutes);
 app.use('/metrics', metricsRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 app.use('/api/tasks', taskRoutes);
-app.use('/api/projects', projectRoutes);
-app.get('/api/stats', statsController.getSystemStats);
+app.get('/api/stats', statsController.getStoreStats);
 
 // 404 Handler
 app.use((req, res) => {
@@ -55,7 +57,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal Server Error', error: err.message });
 });
 
-// Connect database and start listening
+// Bootstrap server
 let server;
 const startServer = async () => {
   try {
@@ -63,7 +65,7 @@ const startServer = async () => {
     if (process.env.NODE_ENV !== 'test') {
       server = app.listen(PORT, () => {
         console.log(`====================================================`);
-        console.log(`🚀 DevOps Backend API running on http://localhost:${PORT}`);
+        console.log(`🛍️  ShopSphere E-Commerce API running on http://localhost:${PORT}`);
         console.log(`📊 Prometheus Metrics available at http://localhost:${PORT}/metrics`);
         console.log(`🩺 Healthcheck endpoint at http://localhost:${PORT}/health`);
         console.log(`====================================================`);

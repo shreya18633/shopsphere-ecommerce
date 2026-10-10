@@ -1,70 +1,94 @@
 import React from 'react';
-import { Layers, Kanban, GitBranch, Activity, Plus, CheckCircle, AlertCircle, Database } from 'lucide-react';
+import { ShoppingBag, Search, ShoppingCart, Package, Server, Terminal, Sparkles, Activity } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, onOpenCreateModal, healthStatus }) {
+export default function Navbar({
+  searchTerm,
+  setSearchTerm,
+  cartCount,
+  onOpenCart,
+  onOpenOrders,
+  onOpenDevOps,
+  healthStatus,
+}) {
   const isHealthy = healthStatus && healthStatus.status === 'UP';
 
   return (
-    <header className="navbar">
-      <div className="nav-brand">
-        <div className="brand-icon">
-          <Layers size={20} color="#ffffff" />
+    <header className="store-navbar">
+      <div className="brand-wrap" onClick={() => setSearchTerm('')}>
+        <div className="brand-logo-icon">
+          <ShoppingBag size={22} color="#ffffff" />
         </div>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span className="brand-title">DevFlow</span>
-            <span className="brand-tag">DevOps 7-in-1</span>
-          </div>
+          <span className="brand-text-title">ShopSphere</span>
+          <span style={{ display: 'block', fontSize: '0.65rem', color: '#94a3b8', fontWeight: 600 }}>
+            Full-Stack Market
+          </span>
         </div>
       </div>
 
-      <nav className="nav-tabs">
-        <button
-          className={`nav-tab-btn ${activeTab === 'kanban' ? 'active' : ''}`}
-          onClick={() => setActiveTab('kanban')}
-        >
-          <Kanban size={16} />
-          <span>Kanban Board</span>
-        </button>
+      <div className="nav-search-bar">
+        <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '11px' }} />
+        <input
+          type="text"
+          className="search-input-field"
+          placeholder="Search products, brands, or categories..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
 
-        <button
-          className={`nav-tab-btn ${activeTab === 'jira' ? 'active' : ''}`}
-          onClick={() => setActiveTab('jira')}
-        >
-          <Layers size={16} />
-          <span>Jira & Sprints (Expt 6)</span>
-        </button>
-
-        <button
-          className={`nav-tab-btn ${activeTab === 'devops' ? 'active' : ''}`}
-          onClick={() => setActiveTab('devops')}
-        >
-          <GitBranch size={16} />
-          <span>CI/CD Pipeline (Expt 1-5)</span>
-        </button>
-
-        <button
-          className={`nav-tab-btn ${activeTab === 'monitoring' ? 'active' : ''}`}
-          onClick={() => setActiveTab('monitoring')}
-        >
-          <Activity size={16} />
-          <span>Prometheus / Grafana (Expt 7)</span>
-        </button>
-      </nav>
-
-      <div className="nav-actions">
-        <div className="status-indicator" style={{
-          backgroundColor: isHealthy ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-          borderColor: isHealthy ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)',
-          color: isHealthy ? '#34d399' : '#f87171'
+      <div className="nav-right-actions">
+        {/* Live Backend Telemetry Pill */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          fontSize: '0.75rem',
+          fontWeight: 700,
+          padding: '0.35rem 0.75rem',
+          borderRadius: 'var(--radius-full)',
+          background: isHealthy ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)',
+          border: `1px solid ${isHealthy ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+          color: isHealthy ? '#34d399' : '#f87171',
         }}>
-          <div className="pulse-dot" style={{ backgroundColor: isHealthy ? '#10b981' : '#ef4444' }} />
-          <span>{isHealthy ? `API: UP (${healthStatus.database?.dialect || 'DB'})` : 'Connecting...'}</span>
+          <span style={{
+            width: '7px',
+            height: '7px',
+            borderRadius: '50%',
+            backgroundColor: isHealthy ? '#10b981' : '#ef4444',
+          }} />
+          <span>{isHealthy ? `API: UP (${healthStatus.database?.dialect})` : 'Connecting...'}</span>
         </div>
 
-        <button className="btn-primary" onClick={onOpenCreateModal}>
-          <Plus size={16} />
-          <span>New Issue</span>
+        {/* DevOps Lab Suite Button (Expt 1 to 7) */}
+        <button className="btn-devops-pill" onClick={onOpenDevOps}>
+          <Server size={15} />
+          <span>DevOps Lab Suite</span>
+        </button>
+
+        {/* Orders History Button */}
+        <button className="btn-secondary" onClick={onOpenOrders} title="View Orders">
+          <Package size={16} />
+          <span>Orders</span>
+        </button>
+
+        {/* Cart Button */}
+        <button className="btn-primary" onClick={onOpenCart} style={{ position: 'relative' }}>
+          <ShoppingCart size={17} />
+          <span>Cart</span>
+          {cartCount > 0 && (
+            <span style={{
+              background: '#f43f5e',
+              color: 'white',
+              fontSize: '0.7rem',
+              fontWeight: 800,
+              borderRadius: '9999px',
+              padding: '0.1rem 0.45rem',
+              marginLeft: '0.2rem',
+            }}>
+              {cartCount}
+            </span>
+          )}
         </button>
       </div>
     </header>
