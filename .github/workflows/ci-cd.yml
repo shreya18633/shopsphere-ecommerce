@@ -1,0 +1,52 @@
+name: DevOps CI/CD Pipeline (Expt 5)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    name: Lint, Test & Validate Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Git Repository (Expt 1)
+        uses: actions/checkout@v4
+
+      - name: 2. Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: 3. Test Backend API (Expt 4)
+        run: |
+          cd backend
+          npm install
+          npm test
+
+      - name: 4. Build Frontend Bundle
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      - name: 5. Build Docker Images (Expt 2)
+        run: |
+          docker build -t devflow-backend:test ./backend
+          docker build -t devflow-frontend:test ./frontend
+
+      - name: 6. Test Multi-Service Docker Compose Boot (Expt 3 & 7)
+        run: |
+          docker compose up -d
+          echo "Waiting for services to initialize..."
+          sleep 20
+          docker compose ps
+          curl -f http://localhost:5000/health || exit 1
+          curl -f http://localhost:5000/metrics | grep http_requests_total
+          docker compose down

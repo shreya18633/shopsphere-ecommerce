@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database Service (Persistent Data Store)
+  postgres:
+    image: postgres:16-alpine
+    container_name: devflow-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devopspassword
+      POSTGRES_DB: devops_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - devops-network
+
+  # 2. Node.js Backend API Service (REST API & Prometheus Exporter)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: devflow-backend
+    restart: always
+    environment:
+      PORT: 5000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: devopspassword
+      DB_NAME: devops_db
+      DB_DIALECT: postgres
+      NODE_ENV: production
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - devops-network
+
+  # 3. React Frontend Service (Served via Nginx Alpine)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: devflow-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - devops-network
+
+  # 4. Prometheus Monitoring Service (Expt 7)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: devflow-prometheus
+    restart: always
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - devops-network
+
+  # 5. Grafana Analytics & Dashboard Service (Expt 7)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: devflow-grafana
+    restart: always
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - devops-network
+
+volumes:
+  postgres_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  devops-network:
+    driver: bridge
