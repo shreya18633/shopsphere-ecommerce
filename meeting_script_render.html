@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShopSphere - Project Presentation & Meeting Script</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 16mm 14mm 16mm 14mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.45;
+      color: #0f172a;
+      background: #ffffff;
+    }
+    h1 {
+      font-size: 18pt;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 4pt;
+      margin-bottom: 3pt;
+      color: #1e1b4b;
+    }
+    h2 {
+      font-size: 13pt;
+      font-weight: 700;
+      color: #312e81;
+      border-bottom: 2pt solid #6366f1;
+      padding-bottom: 3pt;
+      margin-top: 14pt;
+      margin-bottom: 8pt;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #4338ca;
+      margin-top: 10pt;
+      margin-bottom: 4pt;
+      page-break-after: avoid;
+    }
+    p {
+      margin: 4pt 0 6pt 0;
+    }
+    strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8pt 0 10pt 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 5pt 7pt;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+    blockquote {
+      border-left: 3.5pt solid #6366f1;
+      background-color: #eef2ff;
+      margin: 6pt 0;
+      padding: 6pt 10pt;
+      font-size: 9.5pt;
+      color: #1e1b4b;
+      border-radius: 0 4pt 4pt 0;
+      page-break-inside: avoid;
+    }
+    blockquote p {
+      margin: 2pt 0;
+    }
+    ul, ol {
+      margin: 4pt 0 6pt 0;
+      padding-left: 18pt;
+    }
+    li {
+      margin-bottom: 2pt;
+    }
+    code {
+      background-color: #f1f5f9;
+      color: #4338ca;
+      padding: 1pt 3pt;
+      border-radius: 2pt;
+      font-size: 8.5pt;
+      font-family: Menlo, Monaco, Consolas, monospace;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 10pt 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>ShopSphere: Project Presentation &amp; Meeting Script</h1>
+<p><strong>Full-Stack E-Commerce Platform with End-to-End DevOps Architecture</strong><br><strong>Team Members:</strong> Shreya Khandelwal (Lead), Khushboo Lakhani, Mahek<br><strong>Meeting Duration:</strong> ~8–10 Minutes | <strong>Date/Time:</strong> Today at 2:00 PM</p>
+<hr>
+<h2>1. Quick Project Summary (The Elevator Pitch)</h2>
+<blockquote>
+<p><strong>ShopSphere</strong> is a modern, enterprise-ready full-stack E-Commerce platform engineered to simulate real-world software delivery. It features a responsive <strong>React 18</strong> frontend, a scalable <strong>Node.js/Express</strong> backend, relational persistence via <strong>PostgreSQL/SQLite</strong>, orchestrated using <strong>Docker Compose</strong>, continuously integrated through <strong>Jenkins CI/CD</strong> &amp; <strong>GitHub Actions</strong>, planned using <strong>Jira Agile workflows</strong>, and monitored with <strong>Prometheus &amp; Grafana</strong>.</p>
+</blockquote>
+<hr>
+<h2>2. Team Work Breakdown &amp; Responsibilities</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Team Member</th>
+<th align="left">Role</th>
+<th align="left">Core Deliverables &amp; Technical Ownership</th>
+<th align="left">Git Branch &amp; Jira Keys</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Shreya Khandelwal</strong></td>
+<td align="left"><strong>Team Lead &amp; Platform / DevOps Architect</strong></td>
+<td align="left">• Overall full-stack architecture &amp; data modeling (Products, Orders)<br>• Container orchestration with Docker &amp; multi-service Docker Compose<br>• Declarative Jenkins CI/CD pipeline automation &amp; GitHub Actions CI<br>• Prometheus metrics instrumentation (<code>/metrics</code>) &amp; Grafana telemetry<br>• Repository governance, PR code reviews, branch merging, and Jira Sprint management</td>
+<td align="left"><code>main</code>, <code>develop</code><br><code>SHOP-101</code>, <code>SHOP-102</code>, <code>SHOP-103</code>, <code>SHOP-203</code>, <code>SHOP-204</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Khushboo Lakhani</strong></td>
+<td align="left"><strong>Frontend &amp; User Experience Engineer</strong></td>
+<td align="left">• Product Reviews &amp; Customer Star Ratings component (<code>SHOP-201</code>)<br>• Review submission modal, validation, and real-time average score recalculation<br>• Responsive styling and product feedback badge display<br>• Feature branching, Git smart commits, and peer Pull Request lifecycle</td>
+<td align="left"><code>feature/khushboo-product-reviews</code><br><code>SHOP-201</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Mahek</strong></td>
+<td align="left"><strong>Backend Logic &amp; Promotions Specialist</strong></td>
+<td align="left">• Coupon &amp; Discount Promotion Engine (<code>SHOP-202</code>)<br>• Real-time promo code validation (<code>SAVE20</code> for 20% off, <code>DEVOPS10</code> for $10 off)<br>• Subtotal recalculation in Cart Drawer and final checkout billing<br>• Interactive coupon application badge and discount status feedback</td>
+<td align="left"><code>feature/mahek-discounts-coupons</code><br><code>SHOP-202</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>3. Step-by-Step Speaking Script (8–10 Minutes)</h2>
+<h3>Part 1: Welcome &amp; Executive Overview (1.5 Mins) — <strong>Speaker: Shreya</strong></h3>
+<blockquote>
+<p><em>&quot;Good afternoon everyone. Today, our team—myself as Lead, along with Khushboo and Mahek—is presenting <strong>ShopSphere</strong>, our full-stack E-Commerce web platform built with enterprise-grade DevOps automation.</em></p>
+<p><em>Our goal with this project was not just to build a functional online store, but to implement the entire modern Software Development Life Cycle (SDLC). That includes Agile sprint planning in Jira, Git branch-per-feature workflows, containerized microservices using Docker Compose, automated CI/CD testing and builds with Jenkins, and live telemetry with Prometheus and Grafana.</em></p>
+<p><em>I’ll now hand over to Khushboo to present the customer reviews and rating architecture.&quot;</em></p>
+</blockquote>
+<hr>
+<h3>Part 2: Product Reviews &amp; Customer Experience (2 Mins) — <strong>Speaker: Khushboo</strong></h3>
+<blockquote>
+<p><em>&quot;Thank you, Shreya. In an E-Commerce platform, customer trust and social proof are critical for conversion. I was responsible for designing and implementing the <strong>Customer Reviews and Star Ratings component</strong> under Jira ticket <strong>SHOP-201</strong>.</em></p>
+<p><em>Here is what I built:</em></p>
+<ol>
+<li><em>An interactive <strong>Star Rating Selector</strong> allowing customers to score products from 1 to 5 stars.</em></li>
+<li><em>A <strong>Review Submission Modal</strong> that captures customer feedback, validates input, and updates the product&#39;s overall rating average and review count.</em></li>
+<li><em>Visual badges on each product card displaying the verified customer rating score.</em></li>
+</ol>
+<p><em>On the DevOps side, I followed our team Git workflow by creating my own feature branch <code>feature/khushboo-product-reviews</code>, committed my work using smart commit syntax linked to SHOP-201, and submitted a Pull Request which was peer-reviewed and merged into our <code>main</code> production release branch.</em></p>
+<p><em>Next, Mahek will walk through our promotions and discount engine.&quot;</em></p>
+</blockquote>
+<hr>
+<h3>Part 3: Promotions, Discount Engine &amp; Checkout (2 Mins) — <strong>Speaker: Mahek</strong></h3>
+<blockquote>
+<p><em>&quot;Thanks, Khushboo. I developed the <strong>Coupon Code and Discount Promotion System</strong>, tracked under Jira user story <strong>SHOP-202</strong>.</em></p>
+<p><em>Key technical highlights of my contribution include:</em></p>
+<ol>
+<li><em>A dynamic <strong>Discount Calculation Engine</strong> integrated into the Shopping Cart Drawer.</em></li>
+<li><em>Support for multiple promo types: percentage discounts (such as <code>SAVE20</code> for 20% off) and flat credits (like <code>DEVOPS10</code>).</em></li>
+<li><em>Instant cart subtotal recalculation, sales tax estimation, and visual discount confirmation badges.</em></li>
+<li><em>Persistence of the discount in the final order transaction sent to our database upon checkout.</em></li>
+</ol>
+<p><em>Like Khushboo, I developed this in my isolated feature branch <code>feature/mahek-discounts-coupons</code>, pushed my commits to GitHub, and merged via Pull Request into the main branch after passing all test suites.</em></p>
+<p><em>Now, Shreya will explain the underlying DevOps, CI/CD pipeline, and telemetry infrastructure.&quot;</em></p>
+</blockquote>
+<hr>
+<h3>Part 4: Cloud Infrastructure, CI/CD &amp; Telemetry (2.5 Mins) — <strong>Speaker: Shreya</strong></h3>
+<blockquote>
+<p><em>&quot;Thank you, Mahek. To support our store with 99.9% uptime and rapid release velocity, I architected the underlying DevOps platform across four key pillars:</em></p>
+<ol>
+<li><p><em><strong>Containerization &amp; Multi-Service Topology:</strong></em>
+<em>We built multi-stage Dockerfiles for both frontend (using Alpine Nginx) and backend (Node.js). With a single command—<code>docker compose up --build -d</code>—all 5 containers spin up on an isolated bridge network with PostgreSQL persistent data volumes.</em></p>
+</li>
+<li><p><em><strong>Declarative Jenkins CI/CD Pipeline:</strong></em>
+<em>Our Jenkinsfile pipeline automates 5 consecutive stages:</em>
+<em>• <strong>Git Checkout</strong> from our GitHub repository (<code>shreya18633/shopsphere-ecommerce</code>).</em>
+<em>• <strong>Code Quality &amp; Linting</strong> to ensure clean standards.</em>
+<em>• <strong>Automated Unit Testing</strong> via Jest, testing API routes, health endpoints, and database models.</em>
+<em>• <strong>Docker Build</strong> packaging production-ready images.</em>
+<em>• <strong>Automated Deployment &amp; Health Verification</strong> on port 5000 and 3000.</em></p>
+</li>
+<li><p><em><strong>Observability with Prometheus &amp; Grafana:</strong></em>
+<em>We integrated Prometheus metrics middleware into our backend. It exposes latency histograms, HTTP request counters, total checkouts, and system memory consumption at <code>/metrics</code>. This gives us real-time telemetry into cluster performance.</em></p>
+</li>
+<li><p><em><strong>Agile Planning &amp; Smart Commits:</strong></em>
+<em>In Jira, we organized 4 core user stories across Sprint 1 and Sprint 2, maintaining complete traceability from requirement ticket to git commit, Jenkins build, and live monitoring gauge.&quot;</em></p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3>Part 5: Live Walkthrough &amp; Wrap-Up (1 Min) — <strong>Speaker: Shreya / Team</strong></h3>
+<blockquote>
+<p><em>&quot;To conclude our presentation, we would like to showcase the live application:</em></p>
+<p><em>• <strong>Browsing &amp; Categories:</strong> [Demo: Filter by Electronics / Accessories]</em>
+<em>• <strong>Customer Reviews (Khushboo):</strong> [Demo: Open reviews on Sony headphones]</em>
+<em>• <strong>Discount &amp; Checkout (Mahek):</strong> [Demo: Add item to cart, apply <code>SAVE20</code>, and place order]</em>
+<em>• <strong>DevOps Console (Shreya):</strong> [Demo: Click &#39;DevOps Console&#39; in navbar to show Jenkins pipeline simulator, Docker architecture topology, Jira agile sprint matrix, and live Prometheus scrape metrics]</em></p>
+<p><em>Thank you! We are now open for any questions or feedback.&quot;</em></p>
+</blockquote>
+<hr>
+<h2>4. Anticipated Meeting Questions &amp; Quick Answers</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Question</th>
+<th align="left">Answer / Quick Response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>&quot;How did your team collaborate on Git?&quot;</strong></td>
+<td align="left"><em>&quot;We used feature branching (<code>feature/khushboo-product-reviews</code>, <code>feature/mahek-discounts-coupons</code>). Neither member committed directly to <code>main</code>. All code was merged via GitHub Pull Requests after automated tests passed.&quot;</em></td>
+</tr>
+<tr>
+<td align="left"><strong>&quot;What happens if PostgreSQL goes down?&quot;</strong></td>
+<td align="left"><em>&quot;Our database configuration in <code>db.js</code> includes an automatic zero-config SQLite fallback, preventing server crashes during local demonstrations or test runs.&quot;</em></td>
+</tr>
+<tr>
+<td align="left"><strong>&quot;How does Jenkins ensure code quality?&quot;</strong></td>
+<td align="left"><em>&quot;The pipeline executes Jest tests during Stage 2. If any test fails, the build halts immediately, preventing faulty containers from deploying to production.&quot;</em></td>
+</tr>
+<tr>
+<td align="left"><strong>&quot;What business metrics are captured in Prometheus?&quot;</strong></td>
+<td align="left"><em>&quot;<code>ecommerce_orders_total</code> (total checkouts), <code>ecommerce_revenue_total</code> (gross revenue), and <code>http_request_duration_seconds</code> (latency histogram).&quot;</em></td>
+</tr>
+</tbody></table>
+
+</body>
+</html>

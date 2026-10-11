@@ -53,6 +53,13 @@ app.get('/download-report', (req, res) => {
   res.download(filePath, 'Agile_DevOps_Lab_Report_ShopSphere.pdf');
 });
 
+// Meeting Presentation Script PDF Download Route
+app.get('/download-script', (req, res) => {
+  const path = require('path');
+  const filePath = path.join(__dirname, '../../ShopSphere_Project_Meeting_Script.pdf');
+  res.download(filePath, 'ShopSphere_Project_Meeting_Script.pdf');
+});
+
 // 404 Handler
 app.use((req, res) => {
   res.status(404).json({ success: false, message: `Route not found: ${req.method} ${req.url}` });
