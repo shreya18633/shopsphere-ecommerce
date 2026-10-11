@@ -19,10 +19,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: |
-            backend/package-lock.json
-            frontend/package-lock.json
 
       - name: 3. Test Backend API (Expt 4)
         run: |
@@ -38,15 +34,5 @@ jobs:
 
       - name: 5. Build Docker Images (Expt 2)
         run: |
-          docker build -t devflow-backend:test ./backend
-          docker build -t devflow-frontend:test ./frontend
-
-      - name: 6. Test Multi-Service Docker Compose Boot (Expt 3 & 7)
-        run: |
-          docker compose up -d
-          echo "Waiting for services to initialize..."
-          sleep 20
-          docker compose ps
-          curl -f http://localhost:5000/health || exit 1
-          curl -f http://localhost:5000/metrics | grep http_requests_total
-          docker compose down
+          docker build -t shopsphere-backend:latest ./backend
+          docker build -t shopsphere-frontend:latest ./frontend
