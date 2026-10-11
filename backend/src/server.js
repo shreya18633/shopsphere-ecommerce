@@ -46,6 +46,13 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/tasks', taskRoutes);
 app.get('/api/stats', statsController.getStoreStats);
 
+// Direct Report PDF Download Route
+app.get('/download-report', (req, res) => {
+  const path = require('path');
+  const filePath = path.join(__dirname, '../../Agile_DevOps_Lab_Report_ShopSphere.pdf');
+  res.download(filePath, 'Agile_DevOps_Lab_Report_ShopSphere.pdf');
+});
+
 // 404 Handler
 app.use((req, res) => {
   res.status(404).json({ success: false, message: `Route not found: ${req.method} ${req.url}` });
