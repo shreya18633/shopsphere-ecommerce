@@ -318,48 +318,88 @@ docker compose ps`}
         {/* Tab 3: Jira & Agile */}
         {activeTab === 'jira' && (
           <div>
-            <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
-              E-Commerce Agile User Stories (Expt 6 Traceability)
-            </h4>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <div>
+                <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>
+                  Agile Sprint Board & Team Assignments (Expt 6)
+                </h4>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
+                  Team: <strong>Shreya Khandelwal (Lead)</strong>, <strong>Khushboo</strong>, <strong>Mahek</strong>
+                </p>
+              </div>
+              <span className="btn-devops-pill" style={{ fontSize: '0.75rem' }}>Sprint 2 (Active)</span>
+            </div>
+
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.825rem', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}>
+                    <th style={{ padding: '0.6rem' }}>Sprint</th>
                     <th style={{ padding: '0.6rem' }}>Key</th>
                     <th style={{ padding: '0.6rem' }}>User Story / Requirement</th>
+                    <th style={{ padding: '0.6rem' }}>Assignee</th>
                     <th style={{ padding: '0.6rem' }}>Git Branch</th>
                     <th style={{ padding: '0.6rem' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {/* Sprint 1: Foundation */}
                   <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <td style={{ padding: '0.6rem', color: '#94a3b8' }}>Sprint 1</td>
                     <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-101</td>
                     <td style={{ padding: '0.6rem' }}>Setup Product Catalog & Category Filters</td>
-                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/SHOP-101-catalog</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#f8fafc' }}>Shreya (Lead)</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>main</td>
                     <td style={{ padding: '0.6rem', color: '#34d399', fontWeight: 700 }}>DONE</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <td style={{ padding: '0.6rem', color: '#94a3b8' }}>Sprint 1</td>
                     <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-102</td>
-                    <td style={{ padding: '0.6rem' }}>Shopping Cart, Quantity Controls & Checkout Flow</td>
-                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/SHOP-102-checkout</td>
+                    <td style={{ padding: '0.6rem' }}>Shopping Cart, Quantity Controls & Checkout API</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#f8fafc' }}>Shreya (Lead)</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>main</td>
                     <td style={{ padding: '0.6rem', color: '#34d399', fontWeight: 700 }}>DONE</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                    <td style={{ padding: '0.6rem', color: '#94a3b8' }}>Sprint 1</td>
                     <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-103</td>
-                    <td style={{ padding: '0.6rem' }}>Containerize Frontend & Backend with Multi-Stage Docker</td>
-                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/SHOP-103-docker</td>
+                    <td style={{ padding: '0.6rem' }}>Containerize Frontend & Backend with Docker Compose</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#f8fafc' }}>Shreya (Lead)</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>develop</td>
                     <td style={{ padding: '0.6rem', color: '#34d399', fontWeight: 700 }}>DONE</td>
                   </tr>
-                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                    <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-104</td>
-                    <td style={{ padding: '0.6rem' }}>Declarative Jenkins CI Pipeline with Automated Jest Tests</td>
-                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/SHOP-104-jenkins</td>
+
+                  {/* Sprint 2: Team Features */}
+                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', background: 'rgba(99, 102, 241, 0.06)' }}>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontWeight: 700 }}>Sprint 2</td>
+                    <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-201</td>
+                    <td style={{ padding: '0.6rem' }}>Customer Reviews & Star Ratings Component</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#fbbf24' }}>Khushboo</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/khushboo-product-reviews</td>
+                    <td style={{ padding: '0.6rem', color: '#34d399', fontWeight: 700 }}>DONE</td>
+                  </tr>
+                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', background: 'rgba(99, 102, 241, 0.06)' }}>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontWeight: 700 }}>Sprint 2</td>
+                    <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-202</td>
+                    <td style={{ padding: '0.6rem' }}>Coupon Code & Discount Promotion System</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#f43f5e' }}>Mahek</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/mahek-discounts-coupons</td>
+                    <td style={{ padding: '0.6rem', color: '#34d399', fontWeight: 700 }}>DONE</td>
+                  </tr>
+                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)', background: 'rgba(99, 102, 241, 0.06)' }}>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontWeight: 700 }}>Sprint 2</td>
+                    <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-203</td>
+                    <td style={{ padding: '0.6rem' }}>Declarative Jenkins CI/CD Pipeline Automation</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#f8fafc' }}>Shreya (Lead)</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/DEVOPS-104-jenkins</td>
                     <td style={{ padding: '0.6rem', color: '#38bdf8', fontWeight: 700 }}>IN_PROGRESS</td>
                   </tr>
-                  <tr>
-                    <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-105</td>
-                    <td style={{ padding: '0.6rem' }}>Prometheus Metrics & Grafana Live Dashboard Provisioning</td>
-                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/SHOP-105-prometheus</td>
+                  <tr style={{ background: 'rgba(99, 102, 241, 0.06)' }}>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontWeight: 700 }}>Sprint 2</td>
+                    <td style={{ padding: '0.6rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>SHOP-204</td>
+                    <td style={{ padding: '0.6rem' }}>Prometheus Scraper & Grafana Dashboards</td>
+                    <td style={{ padding: '0.6rem', fontWeight: 700, color: '#f8fafc' }}>Shreya (Lead)</td>
+                    <td style={{ padding: '0.6rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>feature/DEVOPS-107-prometheus</td>
                     <td style={{ padding: '0.6rem', color: '#c084fc', fontWeight: 700 }}>IN_REVIEW</td>
                   </tr>
                 </tbody>
@@ -375,15 +415,19 @@ docker compose ps`}
               Git Version Control Operations (Expt 1)
             </h4>
             <div className="code-box">
-              {`# Repository Branches:
-* main (Production release v1.0.0)
+              {`# Active Git Branch Tree (Team: Shreya, Khushboo, Mahek):
+* main (Production Release v2.0.0)
   develop (Integration)
-  feature/SHOP-101-catalog
-  feature/SHOP-102-checkout
-  feature/SHOP-103-docker
+  feature/khushboo-product-reviews         (Khushboo - Customer Reviews & Ratings)
+  feature/mahek-discounts-coupons          (Mahek - Coupon Discount System)
+  feature/DEVOPS-104-jenkins-pipeline      (Shreya - Jenkins CI/CD Automation)
+  feature/DEVOPS-107-prometheus-monitoring (Shreya - Prometheus & Grafana)
 
-# Commit conventions linking Jira:
-git commit -m "SHOP-102: feat: implement shopping cart & order checkout"`}
+# Step-by-Step for Khushboo & Mahek to Push to GitHub:
+git checkout -b feature/<your-name>-<feature-name>
+git add .
+git commit -m "SHOP-201: feat: description of work"
+git push origin feature/<your-name>-<feature-name>`}
             </div>
           </div>
         )}
