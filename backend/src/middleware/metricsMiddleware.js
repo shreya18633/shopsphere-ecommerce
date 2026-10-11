@@ -25,7 +25,7 @@ const httpRequestDuration = new client.Histogram({
 });
 register.registerMetric(httpRequestDuration);
 
-// Business Metrics for E-Commerce Domain (Expt 7)
+// Business Metrics for E-Commerce Domain
 const ordersCounter = new client.Counter({
   name: 'ecommerce_orders_total',
   help: 'Total number of checkout orders placed',

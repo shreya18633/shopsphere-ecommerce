@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Prometheus Metrics Middleware (captures HTTP traffic for Expt 7)
+// Prometheus Metrics Middleware (captures HTTP traffic for telemetry)
 app.use(metricsMiddleware);
 
 // API Root Documentation

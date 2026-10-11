@@ -160,7 +160,7 @@ export default function TaskModal({ isOpen, onClose, onSave, taskToEdit }) {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Git Branch (Expt 1)</label>
+              <label className="form-label">Git Branch</label>
               <input
                 type="text"
                 className="form-input"

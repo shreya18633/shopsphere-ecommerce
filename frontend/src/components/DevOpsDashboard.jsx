@@ -72,7 +72,7 @@ export default function DevOpsDashboard({ stats, healthStatus }) {
       <div className="pipeline-banner">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.4rem' }}>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Jenkins Automated CI/CD Pipeline (Expt 4 & 5)</h2>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Jenkins Automated CI/CD Pipeline</h2>
             <span className="badge-tag" style={{ background: 'rgba(99, 102, 241, 0.2)', color: '#a5b4fc' }}>
               Build #{pipelineState.buildNumber}
             </span>
@@ -157,9 +157,9 @@ export default function DevOpsDashboard({ stats, healthStatus }) {
         </div>
       </div>
 
-      {/* Architecture & Multi-Container Topology (Expt 2 & 3) */}
+      {/* Architecture & Multi-Container Topology */}
       <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '1rem' }}>
-        Docker Compose Multi-Service Architecture (Expt 3)
+        Docker Compose Multi-Service Architecture
       </h3>
       <div className="stat-grid">
         <div className="stat-card">
@@ -169,7 +169,7 @@ export default function DevOpsDashboard({ stats, healthStatus }) {
           <div>
             <div className="stat-val" style={{ fontSize: '1.2rem' }}>Frontend (React)</div>
             <div className="stat-label">Port: 3000 / 80 | Nginx Alpine</div>
-            <span className="badge-tag" style={{ marginTop: '0.4rem', color: '#38bdf8' }}>Expt 2: Dockerized</span>
+            <span className="badge-tag" style={{ marginTop: '0.4rem', color: '#38bdf8' }}>Docker Container</span>
           </div>
         </div>
 
@@ -180,7 +180,7 @@ export default function DevOpsDashboard({ stats, healthStatus }) {
           <div>
             <div className="stat-val" style={{ fontSize: '1.2rem' }}>Backend (Node.js)</div>
             <div className="stat-label">Port: 5000 | Express + Metrics</div>
-            <span className="badge-tag" style={{ marginTop: '0.4rem', color: '#818cf8' }}>Expt 2: Containerized</span>
+            <span className="badge-tag" style={{ marginTop: '0.4rem', color: '#818cf8' }}>Node.js Runtime</span>
           </div>
         </div>
 
@@ -202,34 +202,34 @@ export default function DevOpsDashboard({ stats, healthStatus }) {
           <div>
             <div className="stat-val" style={{ fontSize: '1.2rem' }}>Prometheus & Grafana</div>
             <div className="stat-label">Ports: 9090 & 3001 | Scraping :5000/metrics</div>
-            <span className="badge-tag" style={{ marginTop: '0.4rem', color: '#fbbf24' }}>Expt 7: Monitored</span>
+            <span className="badge-tag" style={{ marginTop: '0.4rem', color: '#fbbf24' }}>Telemetry Active</span>
           </div>
         </div>
       </div>
 
-      {/* Copyable Experiment Verification Commands */}
+      {/* Verification Commands */}
       <div style={{ marginTop: '2rem' }}>
         <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
-          Lab Demonstration CLI Commands (Quick Reference)
+          Platform Operations CLI (Quick Reference)
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
           <div style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.4rem', color: '#a5b4fc' }}>
-              Experiment 2 & 3: Run Docker Compose Stack
+              Container Orchestration: Docker Compose Stack
             </div>
             <pre className="code-block" style={{ margin: 0, padding: '0.6rem' }}>docker compose up --build -d</pre>
           </div>
 
           <div style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.4rem', color: '#a5b4fc' }}>
-              Experiment 4 & 5: Run CI Tests (Jenkins Stage)
+              Continuous Testing: Jest Test Suite
             </div>
             <pre className="code-block" style={{ margin: 0, padding: '0.6rem' }}>cd backend && npm test</pre>
           </div>
 
           <div style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.4rem', color: '#a5b4fc' }}>
-              Experiment 7: Probe Health & Prometheus Metrics
+              Telemetry & Observability: Metrics Endpoint
             </div>
             <pre className="code-block" style={{ margin: 0, padding: '0.6rem' }}>curl http://localhost:5000/health
 curl http://localhost:5000/metrics</pre>

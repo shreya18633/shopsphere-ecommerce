@@ -36,8 +36,11 @@ if (isPostgres) {
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log(`[Database] Connected successfully using ${sequelize.getDialect()} dialect.`);
-    await sequelize.sync({ alter: true });
+    if (sequelize.getDialect() === 'sqlite') {
+      await sequelize.sync();
+    } else {
+      await sequelize.sync({ alter: true });
+    }
     console.log('[Database] Models synchronized.');
   } catch (error) {
     console.error('[Database] Connection failed:', error.message);
@@ -50,7 +53,7 @@ const connectDB = async () => {
         logging: false,
       });
       await sequelize.authenticate();
-      await sequelize.sync({ alter: true });
+      await sequelize.sync();
       console.log('[Database] Connected successfully via SQLite fallback.');
     } else {
       throw error;

@@ -130,7 +130,7 @@ export default function DevOpsModal({ isOpen, onClose, stats, healthStatus }) {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <Server size={22} color="var(--primary)" />
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 800 }}>DevOps Laboratory Suite (Expt 1 to 7)</h3>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 800 }}>DevOps Platform Architecture</h3>
             </div>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.825rem', marginTop: '0.2rem' }}>
               How ShopSphere E-Commerce is containerized, automated, tested, and monitored.
@@ -155,31 +155,31 @@ export default function DevOpsModal({ isOpen, onClose, stats, healthStatus }) {
             className={`category-pill-btn ${activeTab === 'pipeline' ? 'active' : ''}`}
             onClick={() => setActiveTab('pipeline')}
           >
-            Jenkins CI/CD (Expt 4 & 5)
+            Jenkins CI/CD Pipeline
           </button>
           <button
             className={`category-pill-btn ${activeTab === 'architecture' ? 'active' : ''}`}
             onClick={() => setActiveTab('architecture')}
           >
-            Docker Compose (Expt 2 & 3)
+            Docker Architecture
           </button>
           <button
             className={`category-pill-btn ${activeTab === 'jira' ? 'active' : ''}`}
             onClick={() => setActiveTab('jira')}
           >
-            Jira & Agile (Expt 6)
+            Jira Agile Roadmap
           </button>
           <button
             className={`category-pill-btn ${activeTab === 'git' ? 'active' : ''}`}
             onClick={() => setActiveTab('git')}
           >
-            Git & GitHub (Expt 1)
+            Git Version Control
           </button>
           <button
             className={`category-pill-btn ${activeTab === 'monitoring' ? 'active' : ''}`}
             onClick={() => setActiveTab('monitoring')}
           >
-            Prometheus & Grafana (Expt 7)
+            Prometheus & Grafana Telemetry
           </button>
         </div>
 
@@ -321,7 +321,7 @@ docker compose ps`}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
               <div>
                 <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>
-                  Agile Sprint Board & Team Assignments (Expt 6)
+                  Agile Sprint Board & Team Assignments
                 </h4>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
                   Team: <strong>Shreya Khandelwal (Lead)</strong>, <strong>Khushboo</strong>, <strong>Mahek</strong>
@@ -412,7 +412,7 @@ docker compose ps`}
         {activeTab === 'git' && (
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
-              Git Version Control Operations (Expt 1)
+              Git Version Control & Branch Strategy
             </h4>
             <div className="code-box">
               {`# Active Git Branch Tree (Team: Shreya, Khushboo, Mahek):
@@ -437,7 +437,7 @@ git push origin feature/<your-name>-<feature-name>`}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <div>
-                <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>Prometheus & Grafana Exporter (Expt 7)</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>Prometheus & Grafana Telemetry Exporter</h4>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                   Scrapes HTTP requests, order checkouts, and runtime memory from <code>/metrics</code>.
                 </p>

@@ -47,7 +47,7 @@ exports.createOrder = async (req, res) => {
       jiraIssueRef,
     });
 
-    // Update Prometheus metrics for monitoring (Expt 7)
+    // Update Prometheus metrics for observability
     ordersCounter.inc();
     if (totalAmount) {
       revenueCounter.inc(parseFloat(totalAmount));

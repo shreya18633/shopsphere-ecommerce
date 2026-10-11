@@ -190,7 +190,7 @@ export default function App() {
         orders={orders}
       />
 
-      {/* DevOps Laboratory Suite Modal */}
+      {/* DevOps Platform Architecture Modal */}
       <DevOpsModal
         isOpen={isDevOpsOpen}
         onClose={() => setIsDevOpsOpen(false)}

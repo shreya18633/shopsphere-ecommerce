@@ -60,10 +60,10 @@ export default function Navbar({
           <span>{isHealthy ? `API: UP (${healthStatus.database?.dialect})` : 'Connecting...'}</span>
         </div>
 
-        {/* DevOps Lab Suite Button (Expt 1 to 7) */}
+        {/* DevOps Console Button */}
         <button className="btn-devops-pill" onClick={onOpenDevOps}>
           <Server size={15} />
-          <span>DevOps Lab Suite</span>
+          <span>DevOps Console</span>
         </button>
 
         {/* Orders History Button */}

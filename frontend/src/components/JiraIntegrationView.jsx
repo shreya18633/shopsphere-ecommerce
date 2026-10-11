@@ -14,7 +14,7 @@ export default function JiraIntegrationView({ tasks }) {
     <div>
       <div className="board-header">
         <div className="board-title-group">
-          <h1>Jira Agile Project & Backlog (Expt 6)</h1>
+          <h1>Jira Agile Project & Product Backlog</h1>
           <p>Scrum workflows, User Stories, Sprint Planning, and Git Smart Commits integration</p>
         </div>
       </div>
@@ -114,10 +114,10 @@ export default function JiraIntegrationView({ tasks }) {
         </div>
       </div>
 
-      {/* Jira Agile Setup Guide for Lab viva */}
+      {/* Jira Agile Setup Guide */}
       <div style={{ marginTop: '2rem', background: 'var(--bg-card)', padding: '1.5rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)' }}>
         <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '0.5rem' }}>
-          Experiment 6 Viva Summary: Jira in DevOps Pipelines
+          Agile Engineering Practice: Jira in CI/CD Pipelines
         </h3>
         <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.7' }}>
           <li><strong>Role in SDLC:</strong> Jira coordinates backlog management, sprint planning, task assignments, and progress velocity for cross-functional agile teams.</li>

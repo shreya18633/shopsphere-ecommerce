@@ -14,7 +14,7 @@ afterAll(async () => {
 describe('E-Commerce & DevOps API Test Suite', () => {
   let createdProductId;
 
-  describe('1. System Health & Prometheus Telemetry (Expt 7)', () => {
+  describe('1. System Health & Prometheus Telemetry', () => {
     it('GET /health should return 200 UP status for Docker & Jenkins health checks', async () => {
       const res = await request(app).get('/health');
       expect(res.statusCode).toBe(200);
@@ -68,7 +68,7 @@ describe('E-Commerce & DevOps API Test Suite', () => {
     });
   });
 
-  describe('3. Checkout & Order Processing (Expt 6 Jira Traceability)', () => {
+  describe('3. Checkout & Order Processing Traceability', () => {
     it('POST /api/orders should process a customer order and deduct stock', async () => {
       const orderPayload = {
         customerName: 'Jordan Smith',

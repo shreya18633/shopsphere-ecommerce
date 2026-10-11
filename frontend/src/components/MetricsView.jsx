@@ -47,7 +47,7 @@ export default function MetricsView({ stats, healthStatus }) {
     <div>
       <div className="board-header">
         <div className="board-title-group">
-          <h1>Prometheus & Grafana Monitoring (Expt 7)</h1>
+          <h1>Prometheus & Grafana Observability</h1>
           <p>Real-time application metrics, request latency histograms, and system telemetry</p>
         </div>
 
