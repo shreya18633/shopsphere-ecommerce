@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag, Tag, Check } from 'lucide-react';
 
 export default function CartDrawer({
   isOpen,
@@ -9,11 +9,32 @@ export default function CartDrawer({
   onRemoveItem,
   onProceedCheckout,
 }) {
+  const [promoCode, setPromoCode] = useState('');
+  const [discountPercent, setDiscountPercent] = useState(0);
+  const [promoMessage, setPromoMessage] = useState('');
+
   if (!isOpen) return null;
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = subtotal > 50 || subtotal === 0 ? 0 : 9.99;
-  const total = subtotal + shipping;
+  const discountAmount = (subtotal * discountPercent) / 100;
+  const discountedSubtotal = subtotal - discountAmount;
+  const shipping = discountedSubtotal > 50 || discountedSubtotal === 0 ? 0 : 9.99;
+  const total = discountedSubtotal + shipping;
+
+  const handleApplyPromo = (e) => {
+    e.preventDefault();
+    const code = promoCode.trim().toUpperCase();
+    if (code === 'DEVOPS20' || code === 'MAHEK20') {
+      setDiscountPercent(20);
+      setPromoMessage('Promo code applied: 20% OFF!');
+    } else if (code === 'FREESHIP') {
+      setDiscountPercent(10);
+      setPromoMessage('Promo code applied: 10% OFF!');
+    } else {
+      setDiscountPercent(0);
+      setPromoMessage('Invalid coupon code. Try DEVOPS20');
+    }
+  };
 
   return (
     <div className="cart-drawer-overlay" onClick={onClose}>
@@ -99,16 +120,64 @@ export default function CartDrawer({
 
         {cartItems.length > 0 && (
           <div className="cart-footer">
+            {/* Promo Code Input - Implemented by Mahek */}
+            <form onSubmit={handleApplyPromo} style={{ display: 'flex', gap: '0.4rem' }}>
+              <div style={{ position: 'relative', flex: 1 }}>
+                <Tag size={13} color="var(--text-muted)" style={{ position: 'absolute', left: '10px', top: '10px' }} />
+                <input
+                  type="text"
+                  placeholder="Coupon Code (e.g. DEVOPS20)"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  style={{
+                    width: '100%',
+                    background: 'var(--bg-primary)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: 'var(--radius-md)',
+                    padding: '0.45rem 0.6rem 0.45rem 2rem',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.75rem',
+                    outline: 'none',
+                  }}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn-secondary"
+                style={{ fontSize: '0.75rem', padding: '0.45rem 0.8rem' }}
+              >
+                Apply
+              </button>
+            </form>
+            {promoMessage && (
+              <div style={{
+                fontSize: '0.725rem',
+                color: discountPercent > 0 ? '#34d399' : '#f87171',
+                marginTop: '-0.4rem',
+              }}>
+                {promoMessage}
+              </div>
+            )}
+
             <div className="cart-summary-line">
               <span>Subtotal</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
+
+            {discountAmount > 0 && (
+              <div className="cart-summary-line" style={{ color: '#34d399' }}>
+                <span>Discount ({discountPercent}%)</span>
+                <span>-${discountAmount.toFixed(2)}</span>
+              </div>
+            )}
+
             <div className="cart-summary-line">
               <span>Shipping</span>
               <span style={{ color: shipping === 0 ? '#34d399' : 'inherit' }}>
                 {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
               </span>
             </div>
+
             <div className="cart-summary-total">
               <span>Total</span>
               <span>${total.toFixed(2)}</span>
