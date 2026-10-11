@@ -113,3 +113,4 @@ cd backend
 npm test
 ```
 All 7 tests pass covering health, Prometheus metrics, product catalog, and order checkout.
+#Verified by Mahek
