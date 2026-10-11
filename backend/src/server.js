@@ -70,6 +70,13 @@ const startServer = async () => {
   try {
     await connectDB();
     if (process.env.NODE_ENV !== 'test') {
+      const Product = require('./models/Product');
+      const count = await Product.count();
+      if (count === 0) {
+        console.log('[Server] Product catalog empty, running auto-seed...');
+        const seedData = require('./seed');
+        await seedData();
+      }
       server = app.listen(PORT, () => {
         console.log(`====================================================`);
         console.log(`🛍️  ShopSphere E-Commerce API running on http://localhost:${PORT}`);

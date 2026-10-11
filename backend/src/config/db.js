@@ -25,7 +25,9 @@ if (isPostgres) {
   );
 } else {
   // SQLite fallback for standalone zero-dependency local runs and quick testing
-  const storagePath = process.env.SQLITE_STORAGE || path.join(__dirname, '../../devflow.sqlite');
+  const storagePath = process.env.NODE_ENV === 'test'
+    ? ':memory:'
+    : (process.env.SQLITE_STORAGE || path.join(__dirname, '../../devflow.sqlite'));
   sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: storagePath,
