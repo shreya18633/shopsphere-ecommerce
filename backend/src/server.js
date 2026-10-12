@@ -84,7 +84,7 @@ const startServer = async () => {
         const seedData = require('./seed');
         await seedData();
       }
-      server = app.listen(PORT, () => {
+      server = app.listen(PORT, '0.0.0.0', () => {
         console.log(`====================================================`);
         console.log(`🛍️  ShopSphere E-Commerce API running on http://localhost:${PORT}`);
         console.log(`📊 Prometheus Metrics available at http://localhost:${PORT}/metrics`);
